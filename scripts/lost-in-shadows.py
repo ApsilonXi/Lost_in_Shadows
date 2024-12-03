@@ -513,6 +513,6 @@ def prolog():
 if __name__ == "__main__":
     main_menu.main_menu_loop(SCREEN, BLACK, font, GOLD, WIDTH, HEIGHT, RED, WHITE, clock, bg_main_menu_texture)
     music.play_menu_music()
-    prolog()
+    #prolog()
     music.play_classical_music()
     game_loop()
