@@ -1,0 +1,5 @@
+Start
+Exit
+Switch language
+Attack
+Defense
