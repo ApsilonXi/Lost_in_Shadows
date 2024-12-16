@@ -58,6 +58,14 @@ campfire_texture = pygame.transform.scale(campfire_texture, (200, 200))  # Ма�
 bg_battle = pygame.transform.scale(bg_battle, (WIDTH, HEIGHT))
 dead_hero = pygame.transform.scale(dead_hero, (600, 400)) 
 
+# Создание списка монстров с их весовыми коэффициентами (чем выше вес, тем чаще появляется монстр)
+monster_weights = [
+    (FlyingDemon(font), 0.5),  # 50% вероятность
+    (Goblin(font), 0.4),       # 40% вероятность
+    (Skeleton(font), 0.3),     # 30% вероятность
+    (Mushroom(font), 0.1)      # 10% вероятность
+]
+
 class Hero:
     def __init__(self):
         self.health = 100
@@ -227,6 +235,10 @@ class DamageText: #Данный класс нужен для отображен�
     def is_expired(self):
         # Проверка, прошло ли заданное время
         return pygame.time.get_ticks() - self.start_time > self.duration
+
+def choose_monster():
+    monsters, weights = zip(*monster_weights)  # Разделяем список на монстров и их веса
+    return random.choices(monsters, weights)[0] 
 
 
 def combat(hero, enemy):
@@ -438,7 +450,7 @@ def game_loop():
                 if enemy:
                     enemy.draw(dt) # Рисуем врага с передачей dt
                 else:
-                    enemy = random.choice([FlyingDemon(font), Goblin(font), Skeleton(font), Mushroom(font)])  # Создаём врага
+                    enemy = choose_monster()  # Создаём врага
                 
                 # Рисуем героя и даём ему возможность двигаться
                     
