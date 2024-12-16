@@ -236,7 +236,7 @@ class DamageText: #Данный класс нужен для отображен�
         # Проверка, прошло ли заданное время
         return pygame.time.get_ticks() - self.start_time > self.duration
 
-def choose_monster():
+def choose_monster(): #выбираем моба
     monsters, weights = zip(*monster_weights)  # Разделяем список на монстров и их веса
     return random.choices(monsters, weights)[0] 
 
