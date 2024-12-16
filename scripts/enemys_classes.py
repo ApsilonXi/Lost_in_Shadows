@@ -3,7 +3,6 @@ import random
 from draw_txt import *
 import music as music
 
-
 class StatusEffect:
     def __init__(self, name, duration, effect_function):
         self.name = name  # Имя состояния
@@ -18,11 +17,11 @@ class StatusEffect:
             return False  # Возвращаем False, если состояние истекло
         return True  # Возвращаем True, если состояние еще активно
 
-def burn_effect(hero):
+def burn_effect(hero): # горение
     hero.health -= 1  # Уменьшаем здоровье героя каждую секунду
     draw_text("Горение", pygame.font.Font("fonts/hohenzollernlamont.ttf", 36) , RED, 20, HEIGHT - 100)
 
-def bleed_effect(hero):
+def bleed_effect(hero): # кровотечение
     hero.health -= 2  # Накладываем урон кровотечением
     draw_text("Кровотечение", pygame.font.Font("fonts/hohenzollernlamont.ttf", 36) , RED, 20, HEIGHT - 150)
 
@@ -88,7 +87,7 @@ class FlyingDemon:
     def attack(self, hero):
         damage = random.randint(4, 15)  # Наносимый урон
         hero.health -= damage  # Уменьшаем здоровье героя
-        hero.status_effects.append(StatusEffect("Burn", 5000, burn_effect))
+        hero.status_effects.append(StatusEffect("Burn", 5000, burn_effect)) # накладываем состояние горения
         return damage  # Возвращаем величину урона
     
     def start_attack_animation(self):
@@ -164,7 +163,7 @@ class Goblin:
         """Метод атаки"""
         damage = random.randint(8, 18)  # Наносимый урон
         hero.health -= damage  # Уменьшаем здоровье героя
-        hero.status_effects.append(StatusEffect("Bleed", 3000, bleed_effect))
+        hero.status_effects.append(StatusEffect("Bleed", 3000, bleed_effect)) # накладываем состояние кровотечения
         return damage  # Возвращаем величину урона
         
     def start_attack_animation(self):

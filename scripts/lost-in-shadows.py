@@ -15,7 +15,7 @@ from configs import *
 from draw_txt import *
 import music as music  
 import main_menu as main_menu
-from enemys_classes import *
+from enemys_classes import * #классы врагов + накладываемых статусов
 
 # Инициализация Pygame
 pygame.init()
@@ -444,7 +444,7 @@ def game_loop():
                     
                 hero.move(keys)
                 hero.draw(clock.tick(30) / 1000.0) 
-                hero.update_status_effects()
+                hero.update_status_effects() #обновление статуса состояния героя
 
                 # Если враг есть, отрисовываем его и проверяем на столкновение
                 if enemy:
