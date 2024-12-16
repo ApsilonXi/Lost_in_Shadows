@@ -74,6 +74,9 @@ class Hero:
         self.potions = 2
         self.is_moving = False  # Флаг для отслеживания движения
         self.is_attacking = False  # Флаг для отслеживания атаки
+
+        self.status_effects = []  # Список активных состояний
+
         
         # Статистика
         self.attacks_made = 0
@@ -185,6 +188,12 @@ class Hero:
     def heal(self):
         self.health = min(100, self.health + 30)
 
+    def update_status_effects(self):
+        """Обновляем активные состояния и применяем эффекты"""
+        for effect in self.status_effects[:]:
+            if not effect.apply(self):
+                self.status_effects.remove(effect)  # Удаляем истекшие состояния
+
 class Button:
     def __init__(self, x, y, width, height, text, action):
         self.rect = pygame.Rect(x, y, width, height)
@@ -218,6 +227,7 @@ class DamageText: #Данный класс нужен для отображен�
     def is_expired(self):
         # Проверка, прошло ли заданное время
         return pygame.time.get_ticks() - self.start_time > self.duration
+
 
 def combat(hero, enemy):
     if enemy.health > 0:
@@ -411,6 +421,7 @@ def game_loop():
                     quit()
 
         keys = pygame.key.get_pressed()  # Список нажатых клавиш
+       
 
         # Логика комнат
         if room_counter % 4 == 0:  # Комната для отдыха каждые 4 комнаты
@@ -433,6 +444,7 @@ def game_loop():
                     
                 hero.move(keys)
                 hero.draw(clock.tick(30) / 1000.0) 
+                hero.update_status_effects()
 
                 # Если враг есть, отрисовываем его и проверяем на столкновение
                 if enemy:
